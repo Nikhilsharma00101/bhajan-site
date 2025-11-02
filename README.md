@@ -39,20 +39,20 @@ All bhajan details (title, category, lyrics, description) can be managed through
 ## 🚀 Setup Instructions
 
 1️⃣ Clone the Repository
-git clone https://github.com/Nikhilsharma00101/bhajan-site.git
+- git clone https://github.com/Nikhilsharma00101/bhajan-site.git
 cd bhajan-lyrics-dynamic
 
 2️⃣ Install Dependencies
-npm install
+- npm install
 
 3️⃣ Configure Environment Variables
-MONGODB_URI="your_mongodb_connection_string"
+- MONGODB_URI="your_mongodb_connection_string"
 
 4️⃣ Run the Development Server
-npm run dev
+- npm run dev
 
 
-🧑‍💻 Author
+## 🧑‍💻 Author
 
 Nikhil Sharma — Full Stack Developer
 Built with ❤️ using Next.js + MongoDB + Tailwind CSS
