@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎶 Dynamic Bhajan Lyrics Website
 
-## Getting Started
+A fully dynamic web platform for displaying and managing **Bhajan lyrics** — built using **Next.js**, **MongoDB**, and **Tailwind CSS**.  
+All bhajan details (title, category, lyrics, description) can be managed through a simple **Admin Dashboard**, making the site completely dynamic and easy to maintain.
 
-First, run the development server:
+---
 
-```bash
+## 🌟 Features
+
+### 🎵 Public Website
+- 🕉️ Dynamic list of bhajans (fetched from MongoDB)
+- 📜 Tab-style or sidebar navigation to switch between bhajans
+- 🔍 Search and filter bhajans by name or category
+- 🧘 Beautiful, readable typography for long lyrics
+- 📱 Fully responsive and mobile-friendly layout
+
+### 🧩 Admin Dashboard
+- ➕ Add new bhajans dynamically  
+- ✏️ Edit or delete existing bhajans  
+- 🧠 Auto-sync with the public website (no page reloads needed)
+- 🧭 Simple navigation and clean UI (no authentication yet)
+
+---
+
+## ⚙️ Tech Stack
+
+| Layer | Technology |
+|--------|-------------|
+| **Frontend** | Next.js (App Router) |
+| **Styling** | Tailwind CSS |
+| **Backend / API** | Next.js API Routes |
+| **Database** | MongoDB with Mongoose |
+| **State Management** | React Hooks |
+| **Deployment** | Vercel (frontend) + MongoDB Atlas (database) |
+
+---
+
+
+## 🚀 Setup Instructions
+
+1️⃣ Clone the Repository
+git clone https://github.com/Nikhilsharma00101/bhajan-site.git
+cd bhajan-lyrics-dynamic
+
+2️⃣ Install Dependencies
+npm install
+
+3️⃣ Configure Environment Variables
+MONGODB_URI="your_mongodb_connection_string"
+
+4️⃣ Run the Development Server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+🧑‍💻 Author
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Nikhil Sharma — Full Stack Developer
+Built with ❤️ using Next.js + MongoDB + Tailwind CSS
