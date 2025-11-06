@@ -2,12 +2,15 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, LayoutDashboard } from "lucide-react";
-import Image from "next/image";
+import { ArrowLeft } from "lucide-react";
 import { Playfair_Display, Noto_Serif_Devanagari } from "next/font/google";
+import Navbar from "../Navbar";
 
 const heading = Playfair_Display({ subsets: ["latin"], weight: ["700"] });
-const body = Noto_Serif_Devanagari({ subsets: ["devanagari"], weight: ["400"] });
+const body = Noto_Serif_Devanagari({
+  subsets: ["devanagari"],
+  weight: ["400"],
+});
 
 interface Bhajan {
   _id: string;
@@ -21,7 +24,7 @@ interface BhajanGroups {
   [category: string]: Bhajan[];
 }
 
-export default function PremiumHomeBhajans() {
+export default function Hero() {
   const [bhajans, setBhajans] = useState<Bhajan[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedBhajan, setSelectedBhajan] = useState<Bhajan | null>(null);
@@ -44,7 +47,6 @@ export default function PremiumHomeBhajans() {
     fetchBhajans();
   }, []);
 
-  // Group bhajans by category
   const grouped: BhajanGroups = bhajans.reduce((acc, b) => {
     if (!acc[b.category]) acc[b.category] = [];
     acc[b.category].push(b);
@@ -81,56 +83,25 @@ export default function PremiumHomeBhajans() {
       transition={{ duration: 0.9 }}
       className={`${body.className} min-h-screen bg-gradient-to-b from-[#fff4da] via-[#ffe2aa] to-[#ffd275] text-gray-900 flex flex-col items-center pb-28 relative overflow-x-hidden`}
     >
-      {/* Decorative floating particles (tiny diyas) */}
+      {/* Decorations */}
       <div aria-hidden className="pointer-events-none fixed inset-0 -z-10">
-        <div className="absolute left-6 top-24 opacity-40 animate-drift-slow">🪔</div>
-        <div className="absolute right-12 top-48 opacity-30 animate-drift">✨</div>
-        <div className="absolute left-20 bottom-40 opacity-25 animate-drift-wide">✨</div>
+        <div className="absolute left-6 top-24 opacity-40 animate-drift-slow text-lg sm:text-xl">
+          🪔
+        </div>
+        <div className="absolute right-12 top-48 opacity-30 animate-drift text-lg sm:text-xl">
+          ✨
+        </div>
+        <div className="absolute left-20 bottom-40 opacity-25 animate-drift-wide text-lg sm:text-xl">
+          ✨
+        </div>
       </div>
 
-      {/* Audio (chanting) */}
       <audio ref={audioRef} loop src="/audio/soft-chant.mp3" preload="none" />
 
-      {/* =================== NAVBAR =================== */}
-      <header className="fixed top-4 left-0 w-full px-6 md:px-12 z-50">
-        <div className="max-w-7xl mx-auto bg-white/70 backdrop-blur-xl border border-amber-200 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] flex items-center justify-between gap-4 p-4">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 relative rounded-full overflow-hidden shadow-sm">
-              <Image src="/images/logo.png" alt="logo" fill sizes="48px" className="object-cover" />
-            </div>
-            <div>
-              <h1 className={`${heading.className} text-2xl md:text-3xl text-amber-800 font-bold tracking-wide`}>🪔 श्री भजन संग्रह</h1>
-              <p className="text-xs text-amber-600/90">आध्यात्मिक भक्ति — शांति और श्रवण</p>
-            </div>
-          </div>
+      {/* Navbar */}
+      <Navbar playing={playing} toggleAudio={toggleAudio} />
 
-          <nav className="hidden md:flex items-center gap-6 text-amber-700 font-medium">
-            <a href="#categories" className="hover:text-amber-900 transition">भजन श्रेणियाँ</a>
-            <a href="#about" className="hover:text-amber-900 transition">हमारे बारे में</a>
-            <button
-              onClick={toggleAudio}
-              className="px-4 py-2 rounded-full bg-amber-100/60 hover:bg-amber-100/90 transition shadow-inner"
-              aria-pressed={playing}
-            >
-              {playing ? "🔇 संगीत बंद करें" : "🎶 शांत संगीत"}
-            </button>
-            <a
-              href="/dashboard"
-              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-400 via-amber-500 to-orange-600 text-white rounded-full shadow-lg hover:scale-105 transition-all"
-            >
-              <LayoutDashboard className="w-5 h-5" />
-              <span className="font-semibold">Dashboard</span>
-            </a>
-          </nav>
-
-          {/* Mobile actions */}
-          <div className="md:hidden flex items-center gap-3">
-            <button onClick={toggleAudio} className="p-2 rounded-full bg-white/60 shadow-sm">{playing ? "🔇" : "🎶"}</button>
-          </div>
-        </div>
-      </header>
-
-      {/* =================== MAIN CONTENT =================== */}
+       {/* =================== MAIN CONTENT =================== */}
       <main className="pt-36 w-full px-6 sm:px-10 md:px-16 lg:px-24 mt-5">
         {loading && (
           <div className="flex flex-col items-center justify-center h-64">
@@ -284,36 +255,6 @@ export default function PremiumHomeBhajans() {
         </section>
 
       </main>
-
-      {/* Floating diya / scroll to top */}
-      <button
-        aria-label="scroll to top / diya"
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className="fixed bottom-6 right-6 bg-gradient-to-r from-amber-600 to-yellow-500 p-3 rounded-full shadow-lg hover:scale-110 transition text-white z-50"
-      >
-        🪔
-      </button>
-
-      <style jsx global>{`
-        @keyframes shimmer {
-          0% { background-position: -500px 0; }
-          100% { background-position: 500px 0; }
-        }
-        .animate-shimmer { animation: shimmer 3s linear infinite; background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%); background-size: 1000px 100%; }
-
-        @keyframes drift { 0% { transform: translateY(0) translateX(0) rotate(0); } 50% { transform: translateY(-14px) translateX(6px) rotate(2deg); } 100% { transform: translateY(0) translateX(0) rotate(0); } }
-        @keyframes driftSlow { 0% { transform: translateY(0) translateX(0); } 50% { transform: translateY(-24px) translateX(-8px); } 100% { transform: translateY(0) translateX(0); } }
-
-        .animate-drift { animation: drift 6.5s ease-in-out infinite; }
-        .animate-drift-slow { animation: driftSlow 12s ease-in-out infinite; }
-        .animate-drift-wide { animation: drift 9s ease-in-out infinite; }
-
-        /* tiny responsive tweaks */
-        .prose { text-align: left; }
-
-        /* line-clamp utility fallback (if not using plugin) */
-        .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-      `}</style>
     </motion.div>
   );
 }
