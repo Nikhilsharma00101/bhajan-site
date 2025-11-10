@@ -2,11 +2,22 @@ import { connectDB } from "@/lib/mongodb";
 import Bhajan from "@/models/Bhajan";
 import { NextResponse } from "next/server";
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(req: Request, context: { params: Promise<{ id: string }> }) {
   try {
     await connectDB();
+    const { id } = await context.params;
     const data = await req.json();
-    const updatedBhajan = await Bhajan.findByIdAndUpdate(params.id, data, { new: true });
+
+    // Remove undefined or null fields
+    const filteredData = Object.fromEntries(
+      Object.entries(data).filter(([_, v]) => v !== undefined && v !== null)
+    );
+
+    const updatedBhajan = await Bhajan.findByIdAndUpdate(
+      id,
+      { $set: filteredData },
+      { new: true }
+    );
 
     if (!updatedBhajan) {
       return NextResponse.json({ message: "Bhajan not found" }, { status: 404 });
@@ -19,10 +30,12 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request, context: { params: Promise<{ id: string }> }) {
   try {
     await connectDB();
-    const deletedBhajan = await Bhajan.findByIdAndDelete(params.id);
+    const { id } = await context.params;
+
+    const deletedBhajan = await Bhajan.findByIdAndDelete(id);
 
     if (!deletedBhajan) {
       return NextResponse.json({ message: "Bhajan not found" }, { status: 404 });
