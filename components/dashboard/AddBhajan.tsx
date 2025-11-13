@@ -165,6 +165,8 @@ export default function AddBhajanDashboard() {
 <option value="Krishna Bhajans">Krishna Bhajans</option>
 <option value="Shiv Bhajans">Shiv Bhajans</option>
 <option value="Vishnu Bhajans">Vishnu Bhajans</option>
+<option value="Radha Bhajans">Radha Bhajans</option>
+<option value="Khatushyam bhajans">Khatushyam bhajans</option>
 <option value="Durga Bhajans">Durga Bhajans</option>
 <option value="Lakshmi Bhajans">Lakshmi Bhajans</option>
 <option value="Saraswati Bhajans">Saraswati Bhajans</option>
@@ -181,6 +183,8 @@ export default function AddBhajanDashboard() {
 <option value="Evening Bhajans">Evening Bhajans</option>
 <option value="Meditation & Peace">Meditation & Peace</option>
 <option value="Devotional Classics">Devotional Classics</option>
+
+
 
 
 
