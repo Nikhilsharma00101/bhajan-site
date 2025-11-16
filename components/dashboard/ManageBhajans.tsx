@@ -54,21 +54,31 @@ export default function ManageBhajansAdmin() {
   const perPage = 6;
 
   // Fetch all bhajans
-  useEffect(() => {
-    const fetchBhajans = async () => {
-      try {
-        const res = await fetch("/api/bhajans");
-        const data = await res.json();
-        setBhajans(data);
-      } catch (err) {
-        console.error("Failed to fetch bhajans", err);
-        toast.error("भजन लोड करने में समस्या हुई!");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchBhajans();
-  }, []);
+ useEffect(() => {
+  const fetchBhajans = async () => {
+    try {
+      const res = await fetch("/api/bhajans");
+      const data = await res.json();
+
+      // 🛠 FIX: remove blank/ghost bhajans
+      const cleaned = data.filter(
+        (b: Bhajan) =>
+          b.title?.trim() &&
+          b.category?.trim() &&
+          b.lyrics?.trim()
+      );
+
+      setBhajans(cleaned);
+    } catch (err) {
+      console.error("Failed to fetch bhajans", err);
+      toast.error("भजन लोड करने में समस्या हुई!");
+    } finally {
+      setLoading(false);
+    }
+  };
+  fetchBhajans();
+}, []);
+
 
   // Prefill edit form (unchanged logic — safe prefill with guarded use of editing._id)
   useEffect(() => {
